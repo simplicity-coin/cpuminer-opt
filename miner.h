@@ -57,7 +57,7 @@
 #ifndef min
 #define min(a,b) (a>b ? (b) :(a))
 #endif
-#ifndef max 
+#ifndef max
 #define max(a,b) (a<b ? (b) : (a))
 #endif
 */
@@ -85,25 +85,25 @@ void *alloca (size_t);
 #define LOG_BLUE 0x10 /* unique value */
 #else
 enum {
-	LOG_ERR,
-	LOG_WARNING,
-	LOG_NOTICE,
-	LOG_INFO,
-	LOG_DEBUG,
-	/* custom notices */
-	LOG_BLUE = 0x10,
+    LOG_ERR,
+    LOG_WARNING,
+    LOG_NOTICE,
+    LOG_INFO,
+    LOG_DEBUG,
+    /* custom notices */
+    LOG_BLUE = 0x10,
 };
 #endif
 
 static inline bool is_windows(void)
 {
 #ifdef WIN32
-	return true;
+    return true;
 #else
-	return false;
+    return false;
 #endif
 }
- 
+
 #include "compat.h"
 
 #ifndef ARRAY_SIZE
@@ -120,9 +120,9 @@ static inline bool is_windows(void)
 static inline uint32_t swab32(uint32_t v)
 {
 #ifdef WANT_BUILTIN_BSWAP
-	return __builtin_bswap32(v);
+    return __builtin_bswap32(v);
 #else
-	return bswap_32(v);
+    return bswap_32(v);
 #endif
 }
 
@@ -138,29 +138,29 @@ typedef unsigned char uchar;
 #if !HAVE_DECL_BE32DEC
 static inline uint32_t be32dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint32_t)(p[3]) + ((uint32_t)(p[2]) << 8) +
-	    ((uint32_t)(p[1]) << 16) + ((uint32_t)(p[0]) << 24));
+    const uint8_t *p = (uint8_t const *)pp;
+    return ((uint32_t)(p[3]) + ((uint32_t)(p[2]) << 8) +
+        ((uint32_t)(p[1]) << 16) + ((uint32_t)(p[0]) << 24));
 }
 #endif
 
 #if !HAVE_DECL_LE32DEC
 static inline uint32_t le32dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint32_t)(p[0]) + ((uint32_t)(p[1]) << 8) +
-	    ((uint32_t)(p[2]) << 16) + ((uint32_t)(p[3]) << 24));
+    const uint8_t *p = (uint8_t const *)pp;
+    return ((uint32_t)(p[0]) + ((uint32_t)(p[1]) << 8) +
+        ((uint32_t)(p[2]) << 16) + ((uint32_t)(p[3]) << 24));
 }
 #endif
 
 #if !HAVE_DECL_BE32ENC
 static inline void be32enc(void *pp, uint32_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[3] = x & 0xff;
-	p[2] = (x >> 8) & 0xff;
-	p[1] = (x >> 16) & 0xff;
-	p[0] = (x >> 24) & 0xff;
+    uint8_t *p = (uint8_t *)pp;
+    p[3] = x & 0xff;
+    p[2] = (x >> 8) & 0xff;
+    p[1] = (x >> 16) & 0xff;
+    p[0] = (x >> 24) & 0xff;
 }
 #endif
 
@@ -189,28 +189,28 @@ static inline void swab32_array( uint32_t* dst_p, uint32_t* src_p, int n )
 #if !HAVE_DECL_LE32ENC
 static inline void le32enc(void *pp, uint32_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[0] = x & 0xff;
-	p[1] = (x >> 8) & 0xff;
-	p[2] = (x >> 16) & 0xff;
-	p[3] = (x >> 24) & 0xff;
+    uint8_t *p = (uint8_t *)pp;
+    p[0] = x & 0xff;
+    p[1] = (x >> 8) & 0xff;
+    p[2] = (x >> 16) & 0xff;
+    p[3] = (x >> 24) & 0xff;
 }
 #endif
 
 #if !HAVE_DECL_LE16DEC
 static inline uint16_t le16dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint16_t)(p[0]) + ((uint16_t)(p[1]) << 8));
+    const uint8_t *p = (uint8_t const *)pp;
+    return ((uint16_t)(p[0]) + ((uint16_t)(p[1]) << 8));
 }
 #endif
 
 #if !HAVE_DECL_LE16ENC
 static inline void le16enc(void *pp, uint16_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[0] = x & 0xff;
-	p[1] = (x >> 8) & 0xff;
+    uint8_t *p = (uint8_t *)pp;
+    p[0] = x & 0xff;
+    p[1] = (x >> 8) & 0xff;
 }
 #endif
 
@@ -229,7 +229,7 @@ void sha256_transform(uint32_t *state, const uint32_t *block, int swap);
 void sha256d(unsigned char *hash, const unsigned char *data, int len);
 
 #ifdef USE_ASM
-#if defined(__ARM_NEON__) || defined(__i386__) || defined(__x86_64__)
+#if defined(__ARM_NEON) || defined(__i386__) || defined(__x86_64__)
 #define HAVE_SHA256_4WAY 1
 int sha256_use_4way();
 void sha256_init_4way(uint32_t *state);
@@ -254,26 +254,26 @@ void work_copy(struct work *dest, const struct work *src);
 void *api_thread(void *userdata);
 
 struct cpu_info {
-	int thr_id;
-	int accepted;
-	int rejected;
-	double khashes;
-	bool has_monitoring;
-	float cpu_temp;
-	int cpu_fan;
-	uint32_t cpu_clock;
+    int thr_id;
+    int accepted;
+    int rejected;
+    double khashes;
+    bool has_monitoring;
+    float cpu_temp;
+    int cpu_fan;
+    uint32_t cpu_clock;
 };
 
 struct thr_api {
-	int id;
-	pthread_t pth;
-	struct thread_q	*q;
+    int id;
+    pthread_t pth;
+    struct thread_q *q;
 };
 /* end of api */
 
 
-#define JSON_RPC_LONGPOLL	(1 << 0)
-#define JSON_RPC_QUIET_404	(1 << 1)
+#define JSON_RPC_LONGPOLL   (1 << 0)
+#define JSON_RPC_QUIET_404  (1 << 1)
 #define JSON_RPC_IGNOREERR  (1 << 2)
 
 #define JSON_BUF_LEN 512
@@ -313,7 +313,7 @@ void   applog(int prio, const char *fmt, ...);
 void   applog2(int prio, const char *fmt, ...);
 void   restart_threads(void);
 extern json_t *json_rpc_call( CURL *curl, const char *url, const char *userpass,
-                	const char *rpc_req, int *curl_err, int flags );
+                    const char *rpc_req, int *curl_err, int flags );
 extern void cbin2hex(char *out, const char *in, size_t len);
 void   bin2hex( char *s, const unsigned char *p, size_t len );
 char  *abin2hex( const unsigned char *p, size_t len );
@@ -372,20 +372,20 @@ float cpu_temp( int core );
 */
 
 struct work {
-	uint32_t data[48] __attribute__ ((aligned (64)));
-	uint32_t target[8];
+    uint32_t data[48] __attribute__ ((aligned (64)));
+    uint32_t target[8];
 
-	double targetdiff;
-//	double shareratio;
-	double sharediff;
+    double targetdiff;
+//  double shareratio;
+    double sharediff;
 
-	int height;
-	char *txs;
-	char *workid;
+    int height;
+    char *txs;
+    char *workid;
 
-	char *job_id;
-	size_t xnonce2_len;
-	unsigned char *xnonce2;
+    char *job_id;
+    size_t xnonce2_len;
+    unsigned char *xnonce2;
    // x16rt
    uint32_t merkleroothash[8];
    uint32_t witmerkleroothash[8];
@@ -397,17 +397,17 @@ struct work {
 } __attribute__ ((aligned (64)));
 
 struct stratum_job {
-	char *job_id;
-	unsigned char prevhash[32];
-	size_t coinbase_size;
-	unsigned char *coinbase;
-	unsigned char *xnonce2;
-	int merkle_count;
-	unsigned char **merkle;
-	unsigned char version[4];
-	unsigned char nbits[4];
-	unsigned char ntime[4];
-	double diff;
+    char *job_id;
+    unsigned char prevhash[32];
+    size_t coinbase_size;
+    unsigned char *coinbase;
+    unsigned char *xnonce2;
+    int merkle_count;
+    unsigned char **merkle;
+    unsigned char version[4];
+    unsigned char nbits[4];
+    unsigned char ntime[4];
+    double diff;
    bool clean;
    // for x16rt
    unsigned char extra[64];
@@ -420,28 +420,28 @@ struct stratum_job {
 } __attribute__ ((aligned (64)));
 
 struct stratum_ctx {
-	char *url;
+    char *url;
 
-	CURL *curl;
-	char *curl_url;
-	char curl_err_str[CURL_ERROR_SIZE];
-	curl_socket_t sock;
-	size_t sockbuf_size;
-	char *sockbuf;
-	pthread_mutex_t sock_lock;
+    CURL *curl;
+    char *curl_url;
+    char curl_err_str[CURL_ERROR_SIZE];
+    curl_socket_t sock;
+    size_t sockbuf_size;
+    char *sockbuf;
+    pthread_mutex_t sock_lock;
 
-	double next_diff;
-	double sharediff;
+    double next_diff;
+    double sharediff;
 
-	char *session_id;
-	size_t xnonce1_size;
-	unsigned char *xnonce1;
-	size_t xnonce2_size;
-	struct stratum_job job;
-	struct work work __attribute__ ((aligned (64)));
-	pthread_mutex_t work_lock;
+    char *session_id;
+    size_t xnonce1_size;
+    unsigned char *xnonce1;
+    size_t xnonce2_size;
+    struct stratum_job job;
+    struct work work __attribute__ ((aligned (64)));
+    pthread_mutex_t work_lock;
 
-	int block_height;
+    int block_height;
 } __attribute__ ((aligned (64)));
 
 bool stratum_socket_full(struct stratum_ctx *sctx, int timeout);
@@ -532,24 +532,24 @@ enum algos {
         ALGO_ARGON2D250,
         ALGO_ARGON2D500,
         ALGO_ARGON2D4096,
-        ALGO_AXIOM,       
+        ALGO_AXIOM,
         ALGO_BASTION,
-        ALGO_BLAKE,       
+        ALGO_BLAKE,
         ALGO_BLAKE2B,
-        ALGO_BLAKE2S,     
+        ALGO_BLAKE2S,
         ALGO_BLAKECOIN,
-        ALGO_BMW,        
+        ALGO_BMW,
         ALGO_BMW512,
-        ALGO_C11,         
-        ALGO_CRYPTOLIGHT, 
+        ALGO_C11,
+        ALGO_CRYPTOLIGHT,
         ALGO_CRYPTONIGHT,
-        ALGO_CRYPTONIGHTV7, 
+        ALGO_CRYPTONIGHTV7,
         ALGO_DECRED,
         ALGO_DEEP,
         ALGO_DMD_GR,
-        ALGO_DROP,        
-        ALGO_FRESH,       
-        ALGO_GROESTL,     
+        ALGO_DROP,
+        ALGO_FRESH,
+        ALGO_GROESTL,
         ALGO_HEAVY,
         ALGO_HEX,
         ALGO_HMQ1725,
@@ -558,33 +558,33 @@ enum algos {
         ALGO_KECCAK,
         ALGO_KECCAKC,
         ALGO_LBRY,
-        ALGO_LUFFA,       
+        ALGO_LUFFA,
         ALGO_LYRA2H,
-        ALGO_LYRA2RE,       
-        ALGO_LYRA2REV2,   
+        ALGO_LYRA2RE,
+        ALGO_LYRA2REV2,
         ALGO_LYRA2REV3,
-	     ALGO_LYRA2Z,
+        ALGO_LYRA2Z,
         ALGO_LYRA2Z330,
         ALGO_M7M,
-        ALGO_MYR_GR,      
+        ALGO_MYR_GR,
         ALGO_NEOSCRYPT,
-        ALGO_NIST5,       
-        ALGO_PENTABLAKE,  
+        ALGO_NIST5,
+        ALGO_PENTABLAKE,
         ALGO_PHI1612,
-	     ALGO_PHI2,
-        ALGO_PLUCK,       
+        ALGO_PHI2,
+        ALGO_PLUCK,
         ALGO_POLYTIMOS,
         ALGO_POWER2B,
         ALGO_QUARK,
-        ALGO_QUBIT,       
+        ALGO_QUBIT,
         ALGO_SCRYPT,
         ALGO_SCRYPTJANE,
         ALGO_SHA256D,
         ALGO_SHA256Q,
         ALGO_SHA256T,
-        ALGO_SHAVITE3,    
-        ALGO_SKEIN,       
-        ALGO_SKEIN2,      
+        ALGO_SHAVITE3,
+        ALGO_SKEIN,
+        ALGO_SKEIN2,
         ALGO_SKUNK,
         ALGO_SONOA,
         ALGO_TIMETRAVEL,
@@ -595,14 +595,14 @@ enum algos {
         ALGO_WHIRLPOOL,
         ALGO_WHIRLPOOLX,
         ALGO_X11,
-        ALGO_X11EVO,         
+        ALGO_X11EVO,
         ALGO_X11GOST,
         ALGO_X12,
-        ALGO_X13,         
+        ALGO_X13,
         ALGO_X13BCD,
         ALGO_X13SM3,
-        ALGO_X14,        
-        ALGO_X15,       
+        ALGO_X14,
+        ALGO_X15,
         ALGO_X16R,
         ALGO_X16RV2,
         ALGO_X16RT,
@@ -660,7 +660,7 @@ static const char* const algo_names[] = {
         "lyra2re",
         "lyra2rev2",
         "lyra2rev3",
-	     "lyra2z",
+        "lyra2z",
         "lyra2z330",
         "m7m",
         "myr-gr",
@@ -669,7 +669,7 @@ static const char* const algo_names[] = {
         "pentablake",
         "phi1612",
         "phi2",
-	     "pluck",
+        "pluck",
         "polytimos",
         "power2b",
         "quark",
@@ -743,6 +743,7 @@ extern bool have_stratum;
 extern char *opt_cert;
 extern char *opt_proxy;
 extern long opt_proxy_type;
+extern bool opt_ryzen_1x;
 extern bool use_syslog;
 extern bool use_colors;
 extern pthread_mutex_t applog_lock;
@@ -832,7 +833,7 @@ Options:\n\
                           pentablake    5 x blake512\n\
                           phi1612       phi\n\
                           phi2\n\
-			                 pluck         Pluck:128 (Supcoin)\n\
+                          pluck         Pluck:128 (Supcoin)\n\
                           polytimos\n\
                           power2b       MicroBitcoin (MBC)\n\
                           quark         Quark\n\
@@ -843,7 +844,7 @@ Options:\n\
                           sha256d       Double SHA-256\n\
                           sha256q       Quad SHA-256, Pyrite (PYE)\n\
                           sha256t       Triple SHA-256, Onecoin (OC)\n\
-			                 shavite3      Shavite3\n\
+                          shavite3      Shavite3\n\
                           skein         Skein+Sha (Skeincoin)\n\
                           skein2        Double Skein (Woodcoin)\n\
                           skunk         Signatum (SIGT)\n\
@@ -929,6 +930,7 @@ Options:\n\
       --max-temp=N      Only mine if cpu temp is less than specified value (linux)\n\
       --max-rate=N[KMG] Only mine if net hashrate is less than specified value\n\
       --max-diff=N      Only mine if net difficulty is less than specified value\n\
+      --ryzen           (scrypt only) Force AVX, and disable AVX2. Ryzen 1*** is much faster.\n\
   -c, --config=FILE     load a JSON-format configuration file\n\
   -V, --version         display version information and exit\n\
   -h, --help            display this help text and exit\n\
@@ -959,6 +961,7 @@ static struct option const options[] = {
         { "config", 1, NULL, 'c' },
         { "cpu-affinity", 1, NULL, 1020 },
         { "cpu-priority", 1, NULL, 1021 },
+        { "ryzen", 0, NULL, 2000 },
         { "no-color", 0, NULL, 1002 },
         { "debug", 0, NULL, 'D' },
         { "diff-factor", 1, NULL, 'f' },
